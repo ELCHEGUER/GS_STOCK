@@ -295,7 +295,10 @@
 
     </head>
     <body>
+      {% set current_route = app.request.attributes.get('_route') %}
+      {% if current_route != 'app_login' and current_route !='app_register' %}
         {% include 'admin_home/navbar.html.twig' %}
+      {% endif %}
         <div class="card">      
           {% block body %}
           {% endblock %}
