@@ -22,8 +22,8 @@
     <li class="nav-item">
       {% for Model in Models() %}
       <li>
-        <a href="{{ path('app_home') }}" class="nav-link text-white active bg-gradient-primary">
-          <i class="{{ Model.icon }}"></i> {{ Model.name }}
+        <a href="{{ path('app_model') }}" class="nav-link text-white active bg-gradient-primary">
+          <i class="{{ Model.icon }}"></i> &nbsp;&nbsp;{{ Model.name }} 
         </a>
       </li>
       {% endfor %}

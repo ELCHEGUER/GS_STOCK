@@ -1,0 +1,84 @@
+{# {% extends 'base.html.twig' %}
+
+{% block title %}Hello ModelController!{% endblock %}
+
+{% block body %}
+
+<div class="example-wrapper">
+    <h1>Models List</h1>
+    <a href="#">Add a new product</a>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Path</th>
+                <th>Icon</th>
+                <th>Roles</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for model in models %}
+                <tr>
+                    <td>{{ model.id }}</td>
+                    <td>{{ model.name }}</td>
+                    <td>{{ model.path }}</td>
+                    <td>{{ model.icon }}</td>
+                    <td>{{ model.roles }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+#}
+
+
+
+
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Model List{% endblock %}
+
+{% block body %}
+<div class="card-body">
+    <div class="table-responsive text-nowrap">
+        <table id="modelDataTable" class="table table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Path</th>
+                    <th>Icon</th>
+                    <th>Roles</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            $('#modelDataTable').DataTable({
+                "serverSide": true,
+                "ajax": "{{path('models_data')}}",
+                "columns": [
+                    { "data": "id"},
+                    { "data": "name"},
+                    { "data": "path"},
+                    { "data": "icon"},
+                    { "data": "roles"},
+                    { "data": "actions", "name": "actions", "orderable": false, "searchable": false }
+                ],
+                "order": [[0, 'asc']],
+                "autoWidth": false,
+                "bDestroy": true
+            });
+        });
+    </script>
+{% endblock %}
