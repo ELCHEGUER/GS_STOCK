@@ -1,0 +1,61 @@
+
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Product List{% endblock %}
+
+{% block body %}
+<div class="card-body">
+    <div class="table-responsive text-nowrap">
+        <a href="{{ path('supplier_add') }}" class="btn btn-success">Add Supplier</a>
+        
+        <table id="supplierDataTable" class="table table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Numero </th>
+                    <th>Adress</th>
+                    <th>Cin</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            $('#supplierDataTable').DataTable({
+                "serverSide": true,
+                "ajax": "{{path('supplier_data')}}",
+                "columns": [
+                    { "data": "id"},
+                    { "data": "name"},
+                    { "data": "email"},
+                    { "data": "numero"},
+                    { "data": "adress"},
+                    { "data": "cin"},
+                    { "data": "actions", "name": "actions", "orderable": false, "searchable": false }
+                ],
+                "order": [[0, 'asc']],
+                "autoWidth": false,
+                "bDestroy": true
+            });
+        })
+
+        function editSupplier(id) {
+            window.location.href = "{{ path('supplier_edit', {id: 'ID_PLACEHOLDER'}) }}".replace('ID_PLACEHOLDER', id);
+        }
+
+        function deleteSupplier(id) {
+            if (confirm('Are you sure you want to delete this model?')) {
+                window.location.href = "{{ path('supplier_delete', {id: 'ID_PLACEHOLDER'}) }}".replace('ID_PLACEHOLDER', id);
+            }
+        }
+    </script>
+{% endblock %}

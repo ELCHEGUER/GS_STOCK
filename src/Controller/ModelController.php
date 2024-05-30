@@ -2,8 +2,8 @@
 
 
 namespace App\Controller;
-
 use App\Entity\Model;
+use App\Form\ModelType;
 use App\Repository\ModelRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
@@ -58,7 +58,8 @@ class ModelController extends AbstractController
                 'path' => $model->getPath(),
                 'icon' => $model->getIcon(),
                 'roles' => $model->getRoles(),
-                'actions' => 'test',
+                'actions' => '<button class="btn btn-primary btn-sm" onclick="editModel('.$model->getId().')">Edit</button>
+                <button class="btn btn-danger btn-sm" onclick="deleteModel('.$model->getId().')">Delete</button>',
             ];
         }
         return new JsonResponse([
@@ -67,6 +68,61 @@ class ModelController extends AbstractController
             'recordsFiltered' => count($formattedData),
             'data' => $formattedData,
         ]);
+    }
+
+    #[Route('/add', name: 'model_add')]
+public function add(Request $request, EntityManagerInterface $em): Response
+{
+    $model = new Model(); // Create a new instance of the Model entity
+    $form = $this->createForm(ModelType::class, $model); // Create the form
+
+    // Handle the form submission
+    $form->handleRequest($request);
+    if ($form->isSubmitted() && $form->isValid()) {
+        $em->persist($model);
+        $em->flush();
+
+        return $this->redirectToRoute('app_model');
+    }
+
+    // Pass the form to the template
+    return $this->render('model/add.html.twig', [
+        'form' => $form->createView(),
+    ]);
+}
+
+#[Route('/edit/{id}', name: 'model_edit')]
+    public function edit($id, Request $request, EntityManagerInterface $em, ModelRepository $modelRepository): Response
+    {
+        $model = $modelRepository->find($id);
+
+        if (!$model) {
+            throw $this->createNotFoundException('No model found for id '.$id);
+        }
+
+        $form = $this->createForm(ModelType::class, $model);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+
+            return $this->redirectToRoute('app_model');
+        }
+
+        return $this->render('model/edit.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/delete/{id}', name: 'model_delete')]
+    public function delete($id, EntityManagerInterface $em, ModelRepository $modelRepository): Response
+    {
+        $model = $modelRepository->find($id);
+        if ($model) {
+            $em->remove($model);
+            $em->flush();
+        }
+        return $this->redirectToRoute('app_model');
     }
 }
 

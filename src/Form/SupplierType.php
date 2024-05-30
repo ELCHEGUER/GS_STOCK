@@ -1,13 +1,15 @@
-<?php
+<?php 
+
 namespace App\Form;
 
-use App\Entity\Model;
+use App\Entity\Supplier;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ModelType extends AbstractType
+class SupplierType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -17,19 +19,24 @@ class ModelType extends AbstractType
                 'label' => 'Name',
                 'label_attr' => ['class' => 'form-label'],
             ])
-            ->add('path', TextType::class, [
+            ->add('email', EmailType::class, [
                 'attr' => ['class' => 'form-control'],
-                'label' => 'Path',
+                'label' => 'Email',
                 'label_attr' => ['class' => 'form-label'],
             ])
-            ->add('icon', TextType::class, [
+            ->add('numero', TextType::class, [
                 'attr' => ['class' => 'form-control'],
-                'label' => 'Icon',
+                'label' => 'Numero',
                 'label_attr' => ['class' => 'form-label'],
             ])
-            ->add('roles', TextType::class, [
+            ->add('adress', TextType::class, [
                 'attr' => ['class' => 'form-control'],
-                'label' => 'Roles',
+                'label' => 'Address',
+                'label_attr' => ['class' => 'form-label'],
+            ])
+            ->add('CIN', TextType::class, [
+                'attr' => ['class' => 'form-control'],
+                'label' => 'CIN',
                 'label_attr' => ['class' => 'form-label'],
             ]);
     }
@@ -37,7 +44,7 @@ class ModelType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Model::class,
+            'data_class' => Supplier::class,
         ]);
     }
 }

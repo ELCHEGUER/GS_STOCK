@@ -1,0 +1,16 @@
+{# templates/model/add.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Add Model{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Add Model</h1>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <br>
+        <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

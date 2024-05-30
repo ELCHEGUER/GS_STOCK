@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Update Product{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Update Product</h1>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <br>
+        <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
