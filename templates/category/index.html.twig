@@ -1,0 +1,54 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Category List{% endblock %}
+
+{% block body %}
+<div class="card-body">
+    <div class="table-responsive text-nowrap">
+        <a href="{{ path('category_add') }}" class="btn btn-success">Add Category</a>
+        <table id="categoryDataTable" class="table table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            $('#categoryDataTable').DataTable({
+                "serverSide": true,
+                "ajax": "{{path('category_data')}}",
+                "columns": [
+                    { "data": "id"},
+                    { "data": "name"},
+                    { "data": "description"},
+                    { "data": "actions", "name": "actions", "orderable": false, "searchable": false }
+                ],
+                "order": [[0, 'asc']],
+                "autoWidth": false,
+                "bDestroy": true
+            });
+        });
+
+        function editCategory(id) {
+            window.location.href = "{{ path('category_edit', {id: 'ID_PLACEHOLDER'}) }}".replace('ID_PLACEHOLDER', id);
+        }
+
+        function deleteCategory(id) {
+            if (confirm('Are you sure you want to delete this model?')) {
+                window.location.href = "{{ path('category_delete', {id: 'ID_PLACEHOLDER'}) }}".replace('ID_PLACEHOLDER', id);
+            }
+        }
+
+    </script>
+{% endblock %}

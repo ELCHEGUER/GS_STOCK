@@ -56,6 +56,7 @@ class ProductController extends AbstractController
                 'stock' => $product->getStock(),
                 'price' => $product->getPrice(),
                 'supplier' => $product->getSupplier() ? $product->getSupplier()->getName() : 'N/A',
+                'category' => $product->getCategory() ? $product->getCategory()->getName() : 'N/A',
                 'image' => $product->getImage() ? '<img src="/uploads/images/'.$product->getImage().'" alt="'.$product->getName().'" width="50">' : '',
                 'actions' => '<button class="btn btn-primary btn-sm" onclick="editProduct('.$product->getId().')">Edit</button>
                     <button class="btn btn-danger btn-sm" onclick="deleteProduct('.$product->getId().')">Delete</button>',

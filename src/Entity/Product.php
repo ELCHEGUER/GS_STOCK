@@ -31,6 +31,10 @@ class Product
 
     private ?File $imageFile = null;
 
+    #[ORM\ManyToOne(inversedBy: 'products')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Category $Category = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -109,6 +113,18 @@ class Product
             // Ensure the entity is updated if a new file is uploaded
             $this->image = null;
         }
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->Category;
+    }
+
+    public function setCategory(?Category $Category): static
+    {
+        $this->Category = $Category;
 
         return $this;
     }

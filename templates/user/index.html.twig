@@ -1,0 +1,50 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Users List{% endblock %}
+
+{% block body %}
+<div class="card-body">
+    <div class="table-responsive text-nowrap">
+        <a href="{{ path('user_add') }}" class="btn btn-success"><i class="fa-solid fa-user-plus"></i>&nbsp;&nbsp; Add Admin</a>
+        <table id="userDataTable" class="table table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Email</th>
+                    <th>Roles</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            $('#userDataTable').DataTable({
+                "serverSide": true,
+                "ajax": "{{path('users_data')}}",
+                "columns": [
+                    { "data": "id"},
+                    { "data": "email"},
+                    { "data": "roles"},
+                    { "data": "actions", "name": "actions", "orderable": false, "searchable": false }
+                ],
+                "order": [[0, 'asc']],
+                "autoWidth": false,
+                "bDestroy": true
+            });
+        });
+
+        function deleteUser(id) {
+            if (confirm('Are you sure you want to delete this model?')) {
+                window.location.href = "{{ path('user_delete', {id: 'ID_PLACEHOLDER'}) }}".replace('ID_PLACEHOLDER', id);
+            }
+        }
+
+    </script>
+{% endblock %}

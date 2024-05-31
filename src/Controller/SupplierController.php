@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-#[Route('/supplier')]
+#[Route('/supplier')] 
 class SupplierController extends AbstractController
 {
     #[Route('/', name: 'app_supplier')]
