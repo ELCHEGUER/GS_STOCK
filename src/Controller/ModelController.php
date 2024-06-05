@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-#[Route('/model')]
+#[Route('/admin/model')]
 class ModelController extends AbstractController
 {
     #[Route('/', name: 'app_model')]

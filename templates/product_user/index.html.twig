@@ -1,0 +1,32 @@
+{# templates/product_user/index.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Product List{% endblock %}
+
+{% block body %}
+
+    &nbsp;&nbsp;&nbsp;&nbsp;<h3 style="text-align: center">Products</h3>&nbsp;&nbsp;&nbsp;&nbsp; 
+
+    <div class="container">
+        <div class="row">
+            {% for product in products %}
+                <div class="col-md-3">
+                    <div class="card mb-4">
+                        {% if product.image %}
+                            <img src="/uploads/images/{{ product.image }}" class="card-img-top" alt="{{ product.name }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            <p class="card-text">
+                                <strong>Price:</strong> {{ product.price }}<br>
+                                <strong>Stock:</strong> {{ product.stock }}<br>
+                                <strong>Supplier:</strong> {{ product.supplier ? product.supplier.name : 'N/A' }}<br>
+                                <strong>Category:</strong> {{ product.category ? product.category.name : 'N/A' }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

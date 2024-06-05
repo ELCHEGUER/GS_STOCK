@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-#[Route('/category')]
+#[Route('/admin/category')]
 class CategoryController extends AbstractController
 {
     #[Route('/', name: 'app_category')]

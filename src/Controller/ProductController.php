@@ -14,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
-#[Route('/product')]
+#[Route('/admin/product')]
 class ProductController extends AbstractController
 {
     #[Route('/', name: 'app_products')]

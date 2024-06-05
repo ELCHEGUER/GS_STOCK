@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-#[Route('/user')]
+#[Route('/admin/user')]
 class UserController extends AbstractController
 {
     #[Route('/', name: 'app_user')]
@@ -52,10 +52,11 @@ class UserController extends AbstractController
         $results = $queryBuilder->getQuery()->getResult();
         $formattedData = [];
         foreach ($results as $user) {
+            $role = in_array('ROLE_ADMIN',$user->getRoles())?'ADMIN':'USER'; //pour eviter l'affichage de deux roles sur admin
             $formattedData[] = [
                 'id' => $user->getId(),
                 'email' => $user->getEmail(),
-                'roles' => $user->getRoles(),
+                'roles' => $role,  //pour eviter l'affichage de deux roles sur admin
                 'actions' => '<button class="btn btn-danger btn-sm" onclick="deleteUser('.$user->getId().')">Delete</button>',
             ];
         }
