@@ -1,20 +1,82 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CartController!{% endblock %}
+{% block title %}Your Cart{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<div class="container">
+    <!-- Flash messages -->
+    {% for label, messages in app.flashes %}
+        <div class="alert alert-{{ label }}">
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endfor %}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h2 style="text-align: center; margin-top:30px;">Your Cart</h2>
+    <hr style="width: 50%; margin: 0 auto; border-top: 2px solid #000; margin-top:10px; margin-bottom:50px;">
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Users/AYOUB/Desktop/GS_STOCK/my_project_directory/src/Controller/CartController.php</code></li>
-        <li>Your template at <code>C:/Users/AYOUB/Desktop/GS_STOCK/my_project_directory/templates/cart/index.html.twig</code></li>
-    </ul>
+    {% if cart is not empty %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Products</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set grand_total = 0 %}
+                {% for item in cart %}
+                    {% set total = item.product.price * item.quantity %}
+                    {% set grand_total = grand_total + total %}
+                    <tr>
+                        <td><img src="{{ asset('uploads/images/' ~ item.product.image) }}" alt="{{ item.product.name }}" style="max-width: 100px;"></td>
+                        <td>{{ item.product.name }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.product.price }}</td>
+                        <td>{{ total }}</td>
+                        <td> 
+                            <a href="{{ path('app_cart_remove', {'id': item.product.id}) }}" 
+                               class="btn btn-danger delete-item"
+                               data-id="{{ item.product.id }}">
+                                <i class="fa-solid fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td colspan="4" class="text-right"><strong>Grand Total:</strong></td>
+                    <td><strong>{{ grand_total }}</strong></td>
+                    <td><a href="{{ path('app_product_user') }}" class="btn btn-primary mt-3"><i class="fa-solid fa-plus"></i></a></td>
+                </tr>
+                
+            </tbody>
+        </table>
+        <div style="text-align: center;">
+            <a href="{{ path('app_order') }}" class="btn btn-primary mt-3">Proceed to Order</a>
+        </div>
+    {% else %}
+        <h3 style="text-align: center;">Your cart is empty</h3>
+    {% endif %}
 </div>
+
+<script>
+    // Use JavaScript to attach click event to all delete buttons
+    document.addEventListener('DOMContentLoaded', function() {
+        const deleteButtons = document.querySelectorAll('.delete-item');
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+                const productId = this.getAttribute('data-id');
+                if (confirm('Are you sure you want to delete this item from the cart?')) {
+                    window.location.href = '/user/cart/remove/' + productId;
+                }
+            });
+        });
+    });
+</script>
 {% endblock %}

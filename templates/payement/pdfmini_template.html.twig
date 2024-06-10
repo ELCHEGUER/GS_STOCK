@@ -1,0 +1,48 @@
+{# templates/payement/pdf_template.html.twig #}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Payment Receipt</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .header, .footer {
+            text-align: center;
+        }
+        .content {
+            margin-top: 30px;
+        }
+        .details {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        .details th, .details td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        .details th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+      <p><strong>Payment Date:</strong> {{ payement.payementDate|date('Y-m-d H:i:s') }}</p>
+        <h1>bil payment</h1>
+    </div>
+    <div class="content">
+      <p><strong>Full Name:</strong> {{ payement.FullName }}</p>
+        <p><strong>Price:</strong> {{ payement.amount }} USD</p>
+    </div>
+    <div class="footer">
+        <p>Thank you for your payment!</p>
+    </div>
+</body>
+</html>

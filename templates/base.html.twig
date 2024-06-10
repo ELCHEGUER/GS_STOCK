@@ -25,6 +25,7 @@
   <link id="pagestyle" href="{{asset('assets/css/material-dashboard.css?v=3.1.0')}}" rel="stylesheet" />
 
   <link rel="stylesheet" href="https://cdn.datatables.net/2.0.7/css/dataTables.dataTables.min.css">
+  
 
   
         {% endblock %}
@@ -304,6 +305,16 @@
 
     </head>
     <body>
+      <div class="container">
+        {% for label, messages in app.flashes %}
+            <div class="alert alert-{{ label }}">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+    
       {% set current_route = app.request.attributes.get('_route') %}
       {% if current_route != 'app_login' and current_route !='app_register' %}
         {% include 'admin_home/navbar.html.twig' %}

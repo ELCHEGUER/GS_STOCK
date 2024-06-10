@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Payment Success{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body text-center"> <!-- Centering the content -->
+                    <h3>Payment Successful</h3>
+                    <p>Thank you for your payment.</p>
+                    <!-- Adding classes to the icon for size adjustment -->
+                    <i class="fa-solid fa-check fa-5x" style="color: #1eff00;"></i>
+                    <!-- Adding PDF download buttons -->
+                    <div class="mt-3">
+                        <a href="{{ path('payement_success_pdf') }}" class="btn btn-primary mr-3">Download PDF GFORMAT</a>
+                        <a href="{{ path('payement_success_pdf_mini') }}" class="btn btn-secondary">Download PDF MFORMAT</a> <!-- Add this line -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -43,9 +43,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private Collection $models;
 
+    /**
+     * @var Collection<int, Order>
+     */
+    #[ORM\OneToMany(targetEntity: Order::class, mappedBy: 'User')]
+    private Collection $orders;
+
+    /**
+     * @var Collection<int, Model>
+     */
+    #[ORM\OneToMany(targetEntity: Model::class, mappedBy: 'User')]
+    private Collection $model;
+
     public function __construct()
     {
         $this->models = new ArrayCollection();
+        $this->orders = new ArrayCollection();
+        $this->model  = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -134,4 +148,64 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     //     return $this;
     // }
+
+    /**
+     * @return Collection<int, Order>
+     */
+    public function getOrders(): Collection
+    {
+        return $this->orders;
+    }
+
+    public function addOrder(Order $order): static
+    {
+        if (!$this->orders->contains($order)) {
+            $this->orders->add($order);
+            $order->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrder(Order $order): static
+    {
+        if ($this->orders->removeElement($order)) {
+            // set the owning side to null (unless already changed)
+            if ($order->getUser() === $this) {
+                $order->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Model>
+     */
+    public function getMode(): Collection
+    {
+        return $this->model;
+    }
+
+    public function addModel(Model $model): static
+    {
+        if (!$this->model->contains($model)) {
+            $this->model->add($model);
+            $model->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeModel(Model $model): static
+    {
+        if ($this->model->removeElement($model)) {
+            // set the owning side to null (unless already changed)
+            if ($model->getUser() === $this) {
+                $model->setUser(null);
+            }
+        }
+
+        return $this;
+    }
 }

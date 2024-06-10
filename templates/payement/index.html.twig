@@ -1,0 +1,79 @@
+{# templates/payement/new.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}New Payment{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="text-center mb-4">
+                            <h3>Payment</h3>
+                            <hr style="width: 50%; margin: 0 auto; border-top: 2px solid #000;">
+                        </div>
+                        {{ form_start(form) }}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    {{ form_label(form.FullName) }}
+                                    {{ form_widget(form.FullName, {'attr': {'class': 'form-control custom-input'}}) }}
+                                    {{ form_errors(form.FullName) }}
+                                </div>
+                                <div class="mb-3">
+                                    {{ form_label(form.Email) }}
+                                    {{ form_widget(form.Email, {'attr': {'class': 'form-control custom-input'}}) }}
+                                    {{ form_errors(form.Email) }}
+                                </div>
+                                <div class="mb-3">
+                                    {{ form_label(form.address) }}
+                                    {{ form_widget(form.address, {'attr': {'class': 'form-control custom-input'}}) }}
+                                    {{ form_errors(form.address) }}
+                                </div>
+                                <div class="mb-3">
+                                    {{ form_label(form.payementDate) }}
+                                    {{ form_widget(form.payementDate, {'attr': {'class': 'form-control custom-input'}}) }}
+                                    {{ form_errors(form.payementDate) }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    {{ form_label(form.amount) }}
+                                    {{ form_widget(form.amount, {'attr': {'class': 'form-control custom-input'}}) }}
+                                    {{ form_errors(form.amount) }}
+                                </div>
+                                <div class="mb-3">
+                                    {{ form_label(form.acceptedCard) }}
+                                    {{ form_widget(form.acceptedCard, {'attr': {'class': 'form-control custom-input'}}) }}
+                                    {{ form_errors(form.acceptedCard) }}
+                                </div>
+                                <div class="mb-3">
+                                    {{ form_label(form.creditNumber) }}
+                                    {{ form_widget(form.creditNumber, {'attr': {'class': 'form-control custom-input'}}) }}
+                                    {{ form_errors(form.creditNumber) }}
+                                </div>
+                                <div class="mb-3">
+                                    {{ form_label(form.CVV) }}
+                                    {{ form_widget(form.CVV, {'attr': {'class': 'form-control custom-input'}}) }}
+                                    {{ form_errors(form.CVV) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary">{{ button_label|default('Submit') }}</button>
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .custom-input {
+            background-color: #f5f5f5; /* Gris clair */
+        }
+    </style>
+{% endblock %}

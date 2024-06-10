@@ -49,23 +49,25 @@ class UserController extends AbstractController
 
         $totalRecords = $userRepository->count([]);
 
-        $results = $queryBuilder->getQuery()->getResult();
-        $formattedData = [];
-        foreach ($results as $user) {
-            $role = in_array('ROLE_ADMIN',$user->getRoles())?'ADMIN':'USER'; //pour eviter l'affichage de deux roles sur admin
-            $formattedData[] = [
-                'id' => $user->getId(),
-                'email' => $user->getEmail(),
-                'roles' => $role,  //pour eviter l'affichage de deux roles sur admin
-                'actions' => '<button class="btn btn-danger btn-sm" onclick="deleteUser('.$user->getId().')">Delete</button>',
-            ];
-        }
-        return new JsonResponse([
-            'draw' => $draw,
-            'recordsTotal' => $totalRecords,
-            'recordsFiltered' => count($formattedData),
-            'data' => $formattedData,
-        ]);
+$results = $queryBuilder->getQuery()->getResult();
+$formattedData = [];
+foreach ($results as $user) {
+    $role = in_array('ROLE_ADMIN', $user->getRoles()) ? 'ADMIN' : 'USER'; // pour eviter l'affichage de deux roles sur admin
+    $disableDeleteButton = $role === 'ADMIN' ? 'disabled' : '';
+    $formattedData[] = [
+        'id' => $user->getId(),
+        'email' => $user->getEmail(),
+        'roles' => $role,  // pour eviter l'affichage de deux roles sur admin
+        'actions' => '<button class="btn btn-danger btn-sm" onclick="deleteUser(' . $user->getId() . ')" ' . $disableDeleteButton . '>Delete</button>',
+    ];
+}
+return new JsonResponse([
+    'draw' => $draw,
+    'recordsTotal' => $totalRecords,
+    'recordsFiltered' => count($formattedData),
+    'data' => $formattedData,
+]);
+
     }
 
     #[Route('/add', name: 'user_add')]

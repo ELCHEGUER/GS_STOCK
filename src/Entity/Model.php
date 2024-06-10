@@ -25,6 +25,10 @@ class Model
     #[ORM\Column(length: 255)]
     private ?string $roles = null;
 
+    #[ORM\ManyToOne(inversedBy: 'mode')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $User = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -74,6 +78,18 @@ class Model
     public function setRoles(string $roles): static
     {
         $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->User;
+    }
+
+    public function setUser(?User $User): static
+    {
+        $this->User = $User;
 
         return $this;
     }

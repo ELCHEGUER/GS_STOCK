@@ -52,8 +52,8 @@
             {% for Model in Models() %}
               {% if 'ROLE_USER' in Model.roles %}
                 <li class="nav-item">
-                  <a href="{{ path(Model.path) }}" class="nav-link">
-                    <i class="{{ Model.icon }}"></i> &nbsp;&nbsp;{{ Model.name }}
+                  <a href="{{ path(Model.path) }}" class="nav-link fs-6"> <!-- Added fs-5 for larger font size -->
+                    <i class="{{ Model.icon }} fs-5"></i> &nbsp;&nbsp;{{ Model.name }} <!-- Added fs-4 for larger icon size -->
                   </a>
                 </li>
               {% endif %}
@@ -61,17 +61,17 @@
           {% endif %} &nbsp;&nbsp;
           
           {% if is_granted('ROLE_ADMIN') %}
-            <li class="nav-item d-flex align-items-center">
-              <i class="fa fa-user me-sm-1"></i>
+            <li class="nav-item d-flex align-items-center fs-6"> <!-- Added fs-5 for larger font size -->
+              <i class="fa fa-user me-sm-1 fs-5"></i> <!-- Added fs-4 for larger icon size -->
               <span class="d-sm-inline d-none">Admin</span>
             </li>
           {% elseif is_granted('ROLE_USER') %}
-            <li class="nav-item d-flex align-items-center">
-              <i class="fa fa-user me-sm-1"></i>
+            <li class="nav-item d-flex align-items-center fs-6"> <!-- Added fs-5 for larger font size -->
+              <i class="fa fa-user me-sm-1 fs-5"></i> <!-- Added fs-4 for larger icon size -->
               <span class="d-sm-inline d-none">User</span>
             </li>
           {% endif %}
         </ul>
-      </div>
+      </div>      
     </div>
   </nav>
