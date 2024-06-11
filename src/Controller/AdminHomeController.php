@@ -46,8 +46,7 @@ class AdminHomeController extends AbstractController
             'totalSuppliers' => $totalSuppliers,
             'totalCategoryProducts' => $totalCategoryProducts,
             'totalOrders' => $totalOrders, // Pass the totalOrders variable to the template
+            
         ]);
     }
 }
-
-

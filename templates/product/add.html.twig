@@ -1,16 +1,23 @@
-{# templates/model/add.html.twig #}
-
 {% extends 'base.html.twig' %}
 
-{% block title %}Add Productt{% endblock %}
+{% block title %}Add Product{% endblock %}
 
 {% block body %}
     <div class="container">
-        <h1>Add Product</h1>
-        {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <br>
-        <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
-        {{ form_end(form) }}
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title text-center">Add Product</h2>
+                        {{ form_start(form, {'attr': {'class': 'my-form'}}) }}
+                        {{ form_widget(form) }}
+                        <div class="text-center">
+                            <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}

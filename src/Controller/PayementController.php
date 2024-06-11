@@ -18,6 +18,19 @@ class PayementController extends AbstractController
     #[Route('/payement/new', name: 'payement_new')]
     public function new(Request $request, EntityManagerInterface $entityManager, SessionInterface $session): Response
     {
+        // Récupérer le montant total de la commande à partir de la session
+// $orderTotalAmount = $session->get('orderTotalAmount');
+
+// // Initialiser l'entité Payment avec le montant total de la commande
+// $payment = new Payement();
+// $payment->setAmount($orderTotalAmount);
+
+// // Créer le formulaire de paiement en passant le montant total de la commande
+// $form = $this->createForm(PayementType::class, $payment, [
+//     'orderTotalAmount' => $orderTotalAmount, // Passer le montant total de la commande comme option
+// ]);
+
+
         $cart = $session->get('cart', []);
 
         // Calculate the grand total

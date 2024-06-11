@@ -42,26 +42,19 @@ class PayementType extends AbstractType
                 'label' => 'Payment Date',
                 'label_attr' => ['class' => 'form-label'],
             ])
-            ->add('amount', MoneyType::class, [
-                'currency' => 'USD',
-                'attr' => ['class' => 'form-control'],
-                'label' => 'Amount',
-                'label_attr' => ['class' => 'form-label'],
-            ])
+            // ->add('amount', MoneyType::class, [
+            //     'currency' => 'USD',
+            //     'attr' => ['class' => 'form-control'],
+            //     'label' => 'Amount',
+            //     'label_attr' => ['class' => 'form-label'],
+            // ])
             ->add('CVV', TextType::class, [
-                'attr' => ['class' => 'form-control'],
+                'attr' => [
+                    'class' => 'form-control',
+                    'maxlength' => 3, // Limite le nombre de caractères à 3
+                ],
                 'label' => 'CVV',
                 'label_attr' => ['class' => 'form-label'],
-                'constraints' => [
-                    new Length([
-                        'min' => 3,
-                        'max' => 3,
-                        'exactMessage' => 'Le champ CVV doit contenir exactement 3 caractères.',
-                    ]),
-                    new NotBlank([
-                        'message' => 'Le champ CVV ne peut pas être vide.',
-                    ]),
-                ],
             ])
             ->add('acceptedCard', ChoiceType::class, [
                 'choices' => [
@@ -73,7 +66,10 @@ class PayementType extends AbstractType
                 'label_attr' => ['class' => 'form-label'],
             ])
             ->add('creditNumber', TextType::class, [
-                'attr' => ['class' => 'form-control'],
+                'attr' => [
+                    'class' => 'form-control',
+                    'maxlength' => 16, // Limite le nombre de caractères à 16
+                ],
                 'label' => 'Credit Card Number',
                 'label_attr' => ['class' => 'form-label'],
             ]);

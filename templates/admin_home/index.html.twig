@@ -625,7 +625,7 @@
     var totalOrders = '{{ totalOrders | json_encode | raw }}';
     totalOrders = JSON.parse(totalOrders);
 
-    var xValues = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    var xValues = ["Orders"];
 
     
     var ctx = document.getElementById("chart-bars").getContext("2d");
@@ -711,7 +711,7 @@
 
     var ctx2 = document.getElementById("chart-line").getContext("2d");
 
-    var xValues = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    var xValues = ["Suppliers"];
 
     var totalUsers = '{{ totalUsers | json_encode | raw }}';
     totalUsers = JSON.parse(totalUsers);
@@ -802,7 +802,7 @@
     var totalSuppliers = '{{ totalUsers | json_encode | raw }}';
     totalSuppliers = JSON.parse(totalSuppliers);
 
-    var xValues = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    var xValues = ["Users"];
 
     new Chart(ctx3, {
       type: "bar",
